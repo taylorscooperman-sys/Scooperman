@@ -633,7 +633,7 @@
       <div class="service-card">
         <span class="service-icon">🗓️</span>
         <div class="service-name">Bi-Weekly Service</div>
-        <div class="service-price">$27 <span>/ visit</span></div>
+        <div class="service-price">$29 <span>/ visit</span></div>
         <div class="service-desc">Every two weeks. Great for smaller dogs or lower-traffic yards. Still includes full yard cleanup each visit.</div>
       </div>
       <div class="service-card">
@@ -752,7 +752,7 @@
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"I was skeptical paying someone to scoop poop but after the first month I wondered why I waited so long. Best $19 a week I spend. Seriously."</p>
+        <p class="review-text">"I was skeptical paying someone to scoop poop but after the first month I wondered why I waited so long. Best $20 a week I spend. Seriously."</p>
         <div class="review-author">Marcus T.</div>
         <div class="review-location">Hoschton, GA</div>
       </div>
@@ -798,25 +798,25 @@
         </div>
       </div>
       <div>
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xbdwzlor" method="POST">
           <div class="form-row">
             <div class="form-field">
               <label>Your Name</label>
-              <input type="text" placeholder="Jane Smith" required>
+              <input type="text" name="name" placeholder="Jane Smith" required>
             </div>
             <div class="form-field">
               <label>Phone</label>
-              <input type="tel" placeholder="(770) 555-0100">
+              <input type="tel" name="phone" placeholder="(770) 555-0100">
             </div>
           </div>
           <div class="form-field">
             <label>Email</label>
-            <input type="email" placeholder="jane@email.com" required>
+            <input type="email" name="email" placeholder="jane@email.com" required>
           </div>
           <div class="form-row">
             <div class="form-field">
               <label>Service Needed</label>
-              <select>
+              <select name="service">
                 <option>Weekly Service</option>
                 <option>Bi-Weekly Service</option>
                 <option>One-Time Clean</option>
@@ -825,7 +825,7 @@
             </div>
             <div class="form-field">
               <label>Number of Dogs</label>
-              <select>
+              <select name="num_dogs">
                 <option>1 dog</option>
                 <option>2 dogs</option>
                 <option>3+ dogs</option>
@@ -834,7 +834,7 @@
           </div>
           <div class="form-field">
             <label>Message (optional)</label>
-            <textarea placeholder="Tell us about your yard, neighborhood, or any questions..."></textarea>
+            <textarea name="message" placeholder="Tell us about your yard, neighborhood, or any questions..."></textarea>
           </div>
           <button type="submit" class="form-submit">Send My Quote Request 🐾</button>
           <div class="form-success" id="formSuccess">✅ Got it! Taylor will reach out within a few hours.</div>
@@ -864,10 +864,24 @@
   fadeEls.forEach(el => observer.observe(el));
 
   // Form submit
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    document.getElementById('formSuccess').style.display = 'block';
-    this.querySelector('.form-submit').style.display = 'none';
+    const data = new FormData(this);
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('formSuccess').style.display = 'block';
+        this.querySelector('.form-submit').style.display = 'none';
+      } else {
+        alert('Something went wrong. Please call (678) 997-8870 directly.');
+      }
+    } catch(err) {
+      alert('Something went wrong. Please call (678) 997-8870 directly.');
+    }
   });
 
   // Hide float CTA near contact section
