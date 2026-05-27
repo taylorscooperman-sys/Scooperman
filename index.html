@@ -303,6 +303,112 @@
   /* ANIMATIONS */
   .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* VETERAN BADGE in nav */
+  .vet-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(184,134,11,0.18);
+    border: 1px solid rgba(184,134,11,0.4);
+    color: #f5c842;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) { .vet-badge { display: none; } }
+
+  /* VETERAN BANNER SECTION */
+  .vet-banner {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a2e1a 50%, #0d1b2a 100%);
+    padding: 60px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .vet-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+  }
+  .vet-banner-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+  }
+  @media (max-width: 640px) {
+    .vet-banner-inner { grid-template-columns: 1fr; text-align: center; }
+    .vet-flag { margin: 0 auto; }
+  }
+  .vet-flag {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a3a6b, #0d1b2a);
+    border: 3px solid rgba(245,200,66,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    flex-shrink: 0;
+    box-shadow: 0 0 30px rgba(245,200,66,0.15);
+  }
+  .vet-banner-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--tan);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .vet-banner-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 42px);
+    color: var(--white);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .vet-banner-title span { color: var(--yellow); }
+  .vet-banner-text {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 540px;
+  }
+  .vet-pillars {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 640px) { .vet-pillars { justify-content: center; } }
+  .vet-pillar {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.3px;
+  }
+  .vet-pillar span { color: var(--yellow); margin-right: 5px; }
 </style>
 </head>
 <body>
@@ -310,6 +416,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo" aria-label="Scooperman Home">SCOOP<span>ERMAN</span></a>
+  <div class="vet-badge">🎖️ Veteran Owned</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Pricing</a></li>
@@ -339,6 +446,7 @@
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
+  <div class="trust-item"><span>🎖️</span> Veteran Owned Business</div>
   <div class="trust-item"><span>✅</span> Locally Owned & Operated</div>
   <div class="trust-item"><span>🔁</span> Recurring Weekly Service</div>
   <div class="trust-item"><span>🔒</span> Fully Insured</div>
@@ -354,14 +462,18 @@
         <div class="about-visual">
           <img src="https://taylorscooperman-sys.github.io/Scooperman/Mascot.png" alt="Taylor, founder of Scooperman dog waste removal in Braselton GA" class="about-mascot" />
           <div class="about-name">Taylor</div>
-          <div class="about-title-tag">Founder & Chief Scooper</div>
+          <div class="about-title-tag">Founder · Veteran · Chief Scooper</div>
         </div>
       </div>
       <div class="fade-in">
         <div class="section-label">About Me</div>
         <h2 class="section-title" style="color:white;">Your Neighbor.<br>Your Scooper.</h2>
-        <p class="about-text">Hey, I'm Taylor — a Braselton local who started Scooperman because I know this community, I love dogs, and I believe a clean yard shouldn't be something you have to think about. I'm not a franchise. I'm not a call center. When you book with Scooperman, you get me every time — showing up on time, doing the job right, and actually caring about your yard.</p>
+        <p class="about-text">Hey, I'm Taylor — a Braselton local, U.S. military veteran, and the guy behind Scooperman. I started this business because I know this community, I love dogs, and I believe a clean yard shouldn't be something you have to think about. The discipline and accountability I learned in uniform is the same standard I bring to your backyard every single week. I'm not a franchise. I'm not a call center. When you book with Scooperman, you get me every time — showing up on time, doing the job right, and actually caring about your yard.</p>
         <div class="about-values">
+          <div class="about-value">
+            <div class="about-value-icon">🎖️</div>
+            <div class="about-value-text"><strong>Military-Trained Work Ethic</strong>As a U.S. veteran, reliability isn't a selling point — it's just how I operate. On time, every time, no excuses.</div>
+          </div>
           <div class="about-value">
             <div class="about-value-icon">🔒</div>
             <div class="about-value-text"><strong>Fully Insured</strong>You're letting someone into your yard. I take that seriously and carry full general liability insurance.</div>
@@ -379,6 +491,24 @@
     </div>
   </div>
 </section>
+
+<!-- VETERAN BANNER -->
+<div class="vet-banner">
+  <div class="vet-banner-inner fade-in">
+    <div class="vet-flag">🇺🇸</div>
+    <div>
+      <div class="vet-banner-label">Proudly Serving Our Community</div>
+      <div class="vet-banner-title">Veteran <span>Owned</span> &amp; Operated</div>
+      <p class="vet-banner-text">Scooperman is a U.S. veteran-owned small business. The same core values that defined Taylor's military service — discipline, accountability, and showing up when it counts — are the foundation of every single yard visit. When you hire Scooperman, you're supporting a local vet who chose to keep serving his community.</p>
+      <div class="vet-pillars">
+        <div class="vet-pillar"><span>✓</span>On Time, Every Time</div>
+        <div class="vet-pillar"><span>✓</span>Mission-Focused</div>
+        <div class="vet-pillar"><span>✓</span>Community First</div>
+        <div class="vet-pillar"><span>✓</span>No Excuses</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- SERVICES & PRICING -->
 <section id="services" aria-label="Dog Waste Removal Pricing Braselton GA">
@@ -590,6 +720,7 @@
 <footer>
   <p>© 2026 <strong>Scooperman</strong> · Dog Waste Removal · Braselton, GA · <a href="tel:+16789978870" style="color:rgba(255,255,255,0.4);text-decoration:none;">(678) 997-8870</a></p>
   <p style="margin-top:6px;">Serving Braselton · Hoschton · Flowery Branch · Jefferson · Chateau Elan</p>
+  <p style="margin-top:8px;color:rgba(255,255,255,0.25);">🎖️ Proudly Veteran Owned &amp; Operated</p>
 </footer>
 
 <!-- FLOATING CTA -->
