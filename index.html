@@ -330,6 +330,74 @@
   .form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,200,66,0.4); }
   .form-success { display: none; background: var(--green); color: white; border-radius: 12px; padding: 16px; text-align: center; font-weight: 700; font-size: 15px; }
 
+  /* REFERRAL */
+  .referral-banner {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a2e1a 100%);
+    border-radius: 24px;
+    padding: 44px 48px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: start;
+    border: 1px solid rgba(245,200,66,0.2);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+  .referral-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  @media (max-width: 640px) { .referral-banner { grid-template-columns: 1fr; padding: 32px 24px; text-align: center; } }
+  .referral-icon {
+    font-size: 52px;
+    width: 80px; height: 80px;
+    background: rgba(245,200,66,0.12);
+    border: 2px solid rgba(245,200,66,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  @media (max-width: 640px) { .referral-icon { margin: 0 auto; } }
+  .referral-body { position: relative; }
+  .referral-label { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--tan); text-transform: uppercase; margin-bottom: 6px; }
+  .referral-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(26px, 4vw, 38px); color: var(--white); letter-spacing: 1px; line-height: 1.1; margin-bottom: 12px; }
+  .referral-title span { color: var(--yellow); }
+  .referral-text { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.7; margin-bottom: 24px; max-width: 560px; }
+  .referral-text strong { color: var(--yellow); }
+  .referral-steps {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 640px) { .referral-steps { justify-content: center; } }
+  .referral-step {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    flex: 1; min-width: 150px;
+  }
+  .referral-step-num {
+    width: 28px; height: 28px;
+    background: var(--yellow); color: var(--dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .referral-step-text { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 700; line-height: 1.3; }
+  .referral-arrow { color: rgba(255,255,255,0.25); font-size: 20px; font-weight: 300; flex-shrink: 0; }
+  @media (max-width: 640px) { .referral-arrow { display: none; } }
+  .referral-fine { font-size: 12px; color: rgba(255,255,255,0.35); font-weight: 600; letter-spacing: 0.3px; }
+
   /* QUOTE CTA BANNER */
   .quote-cta-banner {
     margin-top: 40px;
@@ -661,7 +729,7 @@
           <li>✅ Cancel anytime, 7 days notice</li>
         </ul>
         <a href="get-a-quote.html" class="sc-btn sc-btn-free">Get Started Free</a>
-        <div class="sc-note">Available to all new customers in Braselton, Hoschton &amp; Surrounding Areas.</div>
+        <div class="sc-note">Available to all new customers in Braselton, Hoschton &amp; Flowery Branch.</div>
       </div>
 
       <!-- ADDITIONAL DOG -->
@@ -685,6 +753,33 @@
         <div class="sc-note">2 extra dogs on weekly? Add just <strong>$6/visit</strong> to your plan.</div>
       </div>
 
+    </div>
+
+    <!-- Referral Banner -->
+    <div class="referral-banner fade-in" style="margin-top: 40px;">
+      <div class="referral-icon">🤝</div>
+      <div class="referral-body">
+        <div class="referral-label">Referral Program</div>
+        <div class="referral-title">Love Scooperman? <span>Share the Love.</span></div>
+        <p class="referral-text">Refer a friend, neighbor, or anyone in your subdivision. When they sign up for a monthly plan, you get <strong>50% off your next month of service</strong> — automatically. No forms, no hassle. Taylor handles it.</p>
+        <div class="referral-steps">
+          <div class="referral-step">
+            <div class="referral-step-num">1</div>
+            <div class="referral-step-text">Tell a neighbor about Scooperman</div>
+          </div>
+          <div class="referral-arrow">→</div>
+          <div class="referral-step">
+            <div class="referral-step-num">2</div>
+            <div class="referral-step-text">They sign up for a monthly plan</div>
+          </div>
+          <div class="referral-arrow">→</div>
+          <div class="referral-step">
+            <div class="referral-step-num">3</div>
+            <div class="referral-step-text">You get 50% off your next month</div>
+          </div>
+        </div>
+        <div class="referral-fine">Have them mention your name when they sign up. That's it.</div>
+      </div>
     </div>
 
     <!-- Quote CTA Banner under pricing -->
