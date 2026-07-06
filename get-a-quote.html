@@ -502,6 +502,15 @@
 
   document.getElementById('quoteForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    const stateInput = this.querySelector('[name="state"]');
+    const stateVal = stateInput.value.trim().toUpperCase();
+    if (stateVal !== 'GA' && stateVal !== 'GEORGIA') {
+      alert("Thanks for your interest! Right now we only service the Braselton, GA area, so we won't be able to help at your location. We didn't want you to wait around for a quote that isn't coming.");
+      stateInput.focus();
+      return;
+    }
+
     const btn = this.querySelector('.form-submit');
     btn.textContent = 'Sending...';
     btn.disabled = true;
