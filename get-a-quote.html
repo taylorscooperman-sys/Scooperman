@@ -185,6 +185,37 @@
   .form-field textarea { resize: vertical; min-height: 100px; }
   .form-field select option { background: var(--white); }
 
+  .live-quote-box {
+    background: rgba(45,106,79,0.06);
+    border: 2px solid var(--green);
+    border-radius: 16px;
+    padding: 22px 24px;
+    text-align: center;
+    animation: quoteFadeIn 0.3s ease;
+  }
+  @keyframes quoteFadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .live-quote-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .live-quote-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--dark);
+    letter-spacing: 1px;
+    line-height: 1.1;
+    margin-top: 4px;
+  }
+  .live-quote-detail {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
   .form-section-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
@@ -386,11 +417,13 @@
           </div>
         </div>
 
+        </div>
+
         <div class="form-section-title" style="margin-top:8px;">Your Dogs & Yard</div>
         <div class="form-row">
           <div class="form-field">
             <label>Number of Dogs *</label>
-            <select name="num_dogs" required>
+            <select name="num_dogs" id="numDogsSelect" required>
               <option value="">Select...</option>
               <option value="1">1 dog</option>
               <option value="2">2 dogs</option>
@@ -413,10 +446,10 @@
         <div class="form-row">
           <div class="form-field">
             <label>Preferred Service *</label>
-            <select name="service" required>
+            <select name="service" id="serviceSelect" required>
               <option value="">Select...</option>
-              <option value="weekly">Weekly - $20/visit</option>
-              <option value="biweekly">Bi-Weekly - $29/visit</option>
+              <option value="weekly">Weekly</option>
+              <option value="biweekly">Bi-Weekly</option>
               <option value="notsure">Not sure yet</option>
             </select>
             <span class="free-badge-inline">🎁 First cleanup free with any monthly plan</span>
@@ -438,11 +471,20 @@
           <textarea name="notes" placeholder="Gate location, dog breed, overgrown yard, specific questions... anything helps!"></textarea>
         </div>
 
+        <!-- LIVE QUOTE BOX -->
+        <div id="liveQuoteBox" class="live-quote-box" style="display:none;">
+          <div class="live-quote-label">Your Price</div>
+          <div class="live-quote-amount" id="liveQuoteAmount">$0/month</div>
+          <div class="live-quote-detail" id="liveQuoteDetail"></div>
+          <a href="#" id="liveQuoteSignupBtn" target="_blank" class="form-submit" style="text-decoration:none; display:block; text-align:center; margin-top:14px;">Sign Up Now 🐾</a>
+          <p class="form-disclaimer" style="margin-top:10px;">First cleanup free with any monthly plan. No contracts, cancel anytime.</p>
+        </div>
+
         <!-- Hidden field to flag this as a quote request -->
         <input type="hidden" name="_subject" value="New Quote Request - Scooperman">
         <input type="hidden" name="form_source" value="get-a-quote page">
 
-        <button type="submit" class="form-submit">Send My Quote Request 🐾</button>
+        <button type="submit" class="form-submit" id="quoteSubmitBtn">Send My Quote Request 🐾</button>
         <p class="form-disclaimer">We'll never share your info. Taylor personally responds to every quote request, usually within a few hours.</p>
         <div class="form-success" id="formSuccess">
           <span>🎉</span>
@@ -500,6 +542,41 @@
     });
   }, 100);
 
+  const PRICING = {
+    weekly: {
+      low: { price: 80, link: 'https://buy.stripe.com/28EdRa9ERg7E0jveRj00000' },
+      high: { price: 92, link: 'https://buy.stripe.com/4gM6oIdV77B84zLgZr00001' }
+    },
+    biweekly: {
+      low: { price: 58, link: 'https://buy.stripe.com/aFabJ22cpf3AaY9cJb00003' },
+      high: { price: 66, link: 'https://buy.stripe.com/00w14o5oB3kS7LXcJb00004' }
+    }
+  };
+
+  function updateLiveQuote() {
+    const service = document.getElementById('serviceSelect').value;
+    const numDogs = document.getElementById('numDogsSelect').value;
+    const box = document.getElementById('liveQuoteBox');
+
+    if (!service || service === 'notsure' || !numDogs) {
+      box.style.display = 'none';
+      return;
+    }
+
+    const tier = numDogs === '3+' ? 'high' : 'low';
+    const match = PRICING[service][tier];
+    const serviceLabel = service === 'weekly' ? 'Weekly' : 'Bi-Weekly';
+    const dogsLabel = numDogs === '3+' ? '3 or more dogs' : (numDogs === '1' ? '1 dog' : '2 dogs');
+
+    document.getElementById('liveQuoteAmount').textContent = '$' + match.price + '/month';
+    document.getElementById('liveQuoteDetail').textContent = serviceLabel + ' service, ' + dogsLabel;
+    document.getElementById('liveQuoteSignupBtn').href = match.link;
+    box.style.display = 'block';
+  }
+
+  document.getElementById('serviceSelect')?.addEventListener('change', updateLiveQuote);
+  document.getElementById('numDogsSelect')?.addEventListener('change', updateLiveQuote);
+
   document.getElementById('quoteForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -511,7 +588,7 @@
       return;
     }
 
-    const btn = this.querySelector('.form-submit');
+    const btn = document.getElementById('quoteSubmitBtn');
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
