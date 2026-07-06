@@ -577,6 +577,23 @@
   document.getElementById('serviceSelect')?.addEventListener('change', updateLiveQuote);
   document.getElementById('numDogsSelect')?.addEventListener('change', updateLiveQuote);
 
+  // Pre-fill service and dog count if arriving from a pricing page link
+  (function prefillFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get('service');
+    const dogs = params.get('dogs');
+    const serviceSelect = document.getElementById('serviceSelect');
+    const numDogsSelect = document.getElementById('numDogsSelect');
+
+    if (service && serviceSelect && [...serviceSelect.options].some(o => o.value === service)) {
+      serviceSelect.value = service;
+    }
+    if (dogs && numDogsSelect && [...numDogsSelect.options].some(o => o.value === dogs)) {
+      numDogsSelect.value = dogs;
+    }
+    updateLiveQuote();
+  })();
+
   document.getElementById('quoteForm')?.addEventListener('submit', async function(e) {
     e.preventDefault();
 
