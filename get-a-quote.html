@@ -379,7 +379,7 @@
            ============================================================ -->
 
       <!-- FALLBACK FORM (remove this block once JotForm is connected) -->
-      <form class="fallback-form" id="quoteForm" action="https://formspree.io/f/xbdwzlor" method="POST">
+      <form class="fallback-form" id="quoteForm">
 
         <div class="form-section-title">Your Info</div>
         <div class="form-row">
@@ -480,17 +480,6 @@
           <p class="form-disclaimer" style="margin-top:10px;">First cleanup free with any monthly plan. No contracts, cancel anytime.</p>
         </div>
 
-        <!-- Hidden field to flag this as a quote request -->
-        <input type="hidden" name="_subject" value="New Quote Request - Scooperman">
-        <input type="hidden" name="form_source" value="get-a-quote page">
-
-        <button type="submit" class="form-submit" id="quoteSubmitBtn">Send My Quote Request 🐾</button>
-        <p class="form-disclaimer">We'll never share your info. Taylor personally responds to every quote request, usually within a few hours.</p>
-        <div class="form-success" id="formSuccess">
-          <span>🎉</span>
-          Got it! Taylor will reach out with your custom quote today.<br>
-          <small style="font-weight:600; opacity:0.85;">Check your phone and email. We usually respond within a few hours.</small>
-        </div>
       </form>
 
     </div>
@@ -594,43 +583,8 @@
     updateLiveQuote();
   })();
 
-  document.getElementById('quoteForm')?.addEventListener('submit', async function(e) {
+  document.getElementById('quoteForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const stateInput = this.querySelector('[name="state"]');
-    const stateVal = stateInput.value.trim().toUpperCase();
-    if (stateVal !== 'GA' && stateVal !== 'GEORGIA') {
-      alert("Thanks for your interest! Right now we only service the Braselton, GA area, so we won't be able to help at your location. We didn't want you to wait around for a quote that isn't coming.");
-      stateInput.focus();
-      return;
-    }
-
-    const btn = document.getElementById('quoteSubmitBtn');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    const data = new FormData(this);
-    try {
-      const res = await fetch(this.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        document.getElementById('formSuccess').style.display = 'block';
-        btn.style.display = 'none';
-        this.querySelector('.form-disclaimer').style.display = 'none';
-        window.scrollTo({ top: document.getElementById('formSuccess').offsetTop - 100, behavior: 'smooth' });
-      } else {
-        btn.textContent = 'Send My Quote Request 🐾';
-        btn.disabled = false;
-        alert('Something went wrong. Please call or text Taylor at (678) 997-8870 directly.');
-      }
-    } catch(err) {
-      btn.textContent = 'Send My Quote Request 🐾';
-      btn.disabled = false;
-      alert('Something went wrong. Please call or text Taylor at (678) 997-8870 directly.');
-    }
   });
 </script>
 
